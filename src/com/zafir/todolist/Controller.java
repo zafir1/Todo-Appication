@@ -68,7 +68,16 @@ public class Controller {
             }
         });
 
-        todoListView.setItems(TodoData.getInstance().getTodoItems());
+        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance().getTodoItems(),
+                new Comparator<TodoItem>() {
+                    @Override
+                    public int compare(TodoItem o1, TodoItem o2) {
+                        return o1.getDeadline().compareTo(o2.getDeadline());
+                    }
+                });
+
+//        todoListView.setItems(TodoData.getInstance().getTodoItems());
+        todoListView.setItems(sortedList);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 
